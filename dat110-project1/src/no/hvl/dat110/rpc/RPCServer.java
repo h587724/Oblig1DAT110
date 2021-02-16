@@ -39,6 +39,15 @@ public class RPCServer {
 		
 		while (!stop) {
 			Message a = connection.receive();
+			
+			byte [] received = a.getData();
+			byte id = received[0];
+			int rpcid = id;
+			RPCImpl procedure = services.get(rpcid);
+			assert procedure != null;
+			byte [] reply = procedure.invoke(received);
+			connection.send(new Message(reply));
+			/*
 			String unmarshalled = RPCUtils.unmarshallString(a.getData());
 			byte id = unmarshalled.getBytes()[0];
 			int rpcid = id;
@@ -46,7 +55,7 @@ public class RPCServer {
 			assert procedure != null : "The given key is invalid!";
 			byte [] reply = procedure.invoke(a.getData());
 			connection.send(new Message(reply));
-			
+			*/
 		   // TODO
 		   // - receive message containing RPC request
 		   // - find the identifier for the RPC methods to invoke

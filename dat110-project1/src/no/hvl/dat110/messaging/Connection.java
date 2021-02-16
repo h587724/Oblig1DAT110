@@ -33,8 +33,7 @@ public class Connection {
 	public void send(Message message) throws IOException {
 		byte [] encapsulated = message.encapsulate();
 		outStream.write(encapsulated);
-		outStream.flush();
-		outStream.close();
+		close();
 		// TODO
 		// encapsulate the data contained in the message and write to the output stream
 		// Hint: use the encapsulate method on the message
@@ -51,9 +50,9 @@ public class Connection {
 		// Hint: create a new Message object and use the decapsulate method
 	
 		recvbuf = inStream.readAllBytes();	
-		if (recvbuf.length > 1) {
+		if (recvbuf.length != MessageConfig.SEGMENTSIZE) {
 			message.decapsulate(recvbuf);
-			inStream.close();
+			close();
 			return message;
 		} else {
 			return null;

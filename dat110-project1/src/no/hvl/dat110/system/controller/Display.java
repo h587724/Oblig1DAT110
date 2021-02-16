@@ -13,7 +13,7 @@ public class Display extends RPCStub {
 
 		byte [] marshalled = RPCUtils.marshallString(RPCID, i);
 		rpcclient.call(marshalled);
-		System.out.println("Current temperature is: " + RPCUtils.unmarshallString(marshalled));
+		RPCUtils.unmarshallVoid(marshalled);
 		// TODO
 		// implement marshalling, call and unmarshalling for write RPC method
 

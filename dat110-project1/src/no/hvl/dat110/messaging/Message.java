@@ -9,7 +9,7 @@ public class Message {
 	private byte[] payload;
 	/* Since we are given 128 bytes and 1 byte is always used for payload identification
 	*/
-	public Message(byte[] payload) {
+	public Message (byte[] payload) {
 		if (payload.length < 128) {
 			this.payload = payload; // TODO: check for length within boundary
 		} else {
@@ -31,15 +31,11 @@ public class Message {
 
 	public byte[] encapsulate() {
 		byte[] encapsulated = new byte[128];
-		if (payload.length > 128) {
-			return null;
-		} else {
-			encapsulated[0] = (byte) payload.length;
-			for (int i = 0; i < payload.length; i++) {
-					encapsulated[i+1] = payload[i];
-			}
-			return encapsulated;
+		encapsulated[0] = (byte) payload.length;
+		for (int i = 0; i < payload.length; i++) {
+			encapsulated[i+1] = payload[i];
 		}
+		return encapsulated;		
 		// TODO
 		// encapulate/encode the payload of this message in the
 		// encoded byte array according to message format

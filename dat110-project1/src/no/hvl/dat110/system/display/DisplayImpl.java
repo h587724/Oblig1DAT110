@@ -16,9 +16,10 @@ public class DisplayImpl implements RPCImpl {
 		byte rpcid;
 		
 		RPCUtils.unmarshallVoid(request); 
-		int temp = RPCUtils.unmarshallInteger(request);
+		String temp = RPCUtils.unmarshallString(request);
+		write (temp);
 		rpcid = request[0];
-		reply = RPCUtils.marshallInteger(rpcid,temp); 
+		reply = RPCUtils.marshallVoid(rpcid); 
 	
 		return reply;
 		// TODO: 

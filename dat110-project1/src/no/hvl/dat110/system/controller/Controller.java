@@ -47,6 +47,11 @@ public class Controller  {
 		while (!temp.isEmpty()) {
 			display.write(temp);
 			temp = Integer.toString(sensor.read());
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		stopdisplay.stop();
